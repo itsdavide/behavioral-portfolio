@@ -1,5 +1,8 @@
 # behavioral-portfolio
-Behavioral dynamic portfolio selection in a binomial market with S-shaped utility and epsilon-contaminations
+Optimization code for the paper:
+    
+A. Cinfrignini, D. Petturiti, B. Vantaggi (2024). 
+Behavioral dynamic portfolio selection with S-shaped utility and epsilon-contaminations.
 
 # Requirements
 The code has been tested on Python 3.10 with the following libraries:
