@@ -9,7 +9,7 @@ Behavioral dynamic portfolio selection with S-shaped utility and epsilon-contami
 """
 EXPLANATION OF THE CODE:
 Maximizes the following function with respect to the variable eta using the
-Golden-section serach algorithm:
+Golden-section search algorithm:
     f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)
 where:
     * eta: optimization variable
