@@ -3,49 +3,49 @@ Behavioral dynamic portfolio selection in a binomial market with S-shaped utilit
 
 # Requirements
 The code has been tested on Python 3.10 with the following libraries:
-* matplotlib 3.7.1
-* numpy 1.23.5
-* pandas 1.5.3
-* promo 6.6.1
-* scipy 1.10.1
-* yfinance 0.2.18
+* **matplotlib** 3.7.1
+* **numpy** 1.23.5
+* **pandas** 1.5.3
+* **promo** 6.6.1
+* **scipy** 1.10.1
+* **yfinance** 0.2.18
 
-Reference to the library pyomo is here: http://www.pyomo.org/
+Reference to the library **pyomo** is here: http://www.pyomo.org/
 
-Reference to the library yfinance is here: https://pypi.org/project/yfinance/
+Reference to the library **yfinance** is here: https://pypi.org/project/yfinance/
 
-The code necessitates of the bonmin solver that can be downloaded here: https://www.coin-or.org/Bonmin/
+The code necessitates of the **bonmin** solver that can be downloaded here: https://www.coin-or.org/Bonmin/
 
-The bonmin solver should be located in a folder and the path to that folder should be inserted in the variable optimizer_path in the top of file behavioral_portfolio.py
+The **bonmin** solver should be located in a folder and the path to that folder should be inserted in the variable **optimizer_path** in the top of file **behavioral_portfolio.py**
 
 # File inventory
-behavioral_portfolio.py: Optimization code that reduces the dynamic portfolio selection in a binomial
+**behavioral_portfolio.py**: Optimization code that reduces the dynamic portfolio selection in a binomial
 market into the maximization of the function of the variable eta:
-    f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)
+_f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)_
 where:
-    * eta: optimization variable
-    * T: time horizon in periods
-    * u: up factor for the binomial market
-    * d: down factor for the binomial market
-    * V0: initial endowment (either positive or negative)
-    * r: risk-free interest rate per period
-    * p: real-world probability parameter for the binomial market
-    * epsilon_p: ambiguity parameter for gains
-    * epsilon_m: ambiguity parameter for losses
-    * alpha_p: constant relative risk aversion for gains
-    * alpha_m: constant relative risk aversion for losses
-    * lamb: scale parameter for losses
-IMPORTANT: eta is assumed to range in [[V0]+, +infinity)
+* _eta_: optimization variable
+* _T_: time horizon in periods
+* _u_: up factor for the binomial market
+* _d_: down factor for the binomial market
+* _V0_: initial endowment (either positive or negative)
+* _r_: risk-free interest rate per period
+* _p_: real-world probability parameter for the binomial market
+* _epsilon_p_: ambiguity parameter for gains
+* _epsilon_m_: ambiguity parameter for losses
+* _alpha_p_: constant relative risk aversion for gains
+* _alpha_m_: constant relative risk aversion for losses
+* _lamb_: scale parameter for losses
+**IMPORTANT: eta is assumed to range in [[V0]+, +infinity)**
 
-calibration_GOOG.ipynb: Calibration of parameters on market data for the stock GOOG downloading data from Yahoo! Finance through the library yfinance
+**calibration_GOOG.ipynb**: Calibration of parameters on market data for the stock GOOG downloading data from Yahoo! Finance through the library yfinance
 
-exhaustive_search.py: Maximizes the following function with respect to the variable eta using the
+**exhaustive_search.py**: Maximizes the following function with respect to the variable eta using the
 Golden-section serach algorithm:
-    f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)
+_f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)_
 
-golden_section_search.py: Maximizes the following function with respect to the variable eta using the
+**golden_section_search.py**: Maximizes the following function with respect to the variable eta using the
 Golden-section serach algorithm:
-    f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)
+_f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)_
 
-graph_f.py: Plots the graph of the following function with respect to the variable eta:
-    f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)
+**graph_f.py**: Plots the graph of the following function with respect to the variable eta:
+_f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)_
