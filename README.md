@@ -46,7 +46,7 @@ where:
 **exhaustive_search.py**: Maximizes the following function with respect to the variable eta using an exhausitive search in a partition of a subinterval of [[V0]+, +infinity):
 _f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)_
 
-**golden_section_search.py**: Maximizes the following function with respect to the variable eta using the Golden-section serach algorithm:
+**golden_section_search.py**: Maximizes the following function with respect to the variable eta using the Golden-section search algorithm:
 _f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb)_
 
 **graph_f.py**: Plots the graph of the following function with respect to the variable eta:
