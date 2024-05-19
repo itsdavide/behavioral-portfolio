@@ -9,7 +9,7 @@ The code has been tested on Python 3.10 with the following libraries:
 * **matplotlib** 3.7.1
 * **numpy** 1.23.5
 * **pandas** 1.5.3
-* **promo** 6.6.1
+* **pyomo** 6.6.1
 * **scipy** 1.10.1
 * **yfinance** 0.2.18
 
