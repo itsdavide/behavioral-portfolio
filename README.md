@@ -38,6 +38,7 @@ where:
 * _alpha_p_: constant relative risk aversion for gains
 * _alpha_m_: constant relative risk aversion for losses
 * _lamb_: scale parameter for losses
+
 **IMPORTANT: eta is assumed to range in [[V0]+, +infinity)**
 
 **calibration_GOOG.ipynb**: Calibration of parameters on market data for the stock GOOG downloading data from Yahoo! Finance through the library yfinance
