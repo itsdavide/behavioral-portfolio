@@ -55,7 +55,7 @@ def product(ar_list):
 
 
 # Optimal solution of the positive part problem
-def CH_Port_Pos(p, V0, eta, u, d, r, alpha, epsilon, T, c):   
+def CH_Port_Pos(p, V0, eta, u, d, r, alpha, epsilon, T, n):   
     model = pyo.ConcreteModel()
 
     # Number of variables
@@ -63,7 +63,7 @@ def CH_Port_Pos(p, V0, eta, u, d, r, alpha, epsilon, T, c):
     # Number of extreme points
     M = list(range(T + 2)) # 0, ..., T + 1
     # Check if the current event is Omega
-    if sum(c[k] for k in N) == 2**T:
+    if sum(n[k] for k in N) == 2**T:
         M = list(range(T + 1)) # 0, ..., T
     
 
@@ -73,23 +73,23 @@ def CH_Port_Pos(p, V0, eta, u, d, r, alpha, epsilon, T, c):
     def U(x):
         return x ** alpha
 
-    # Generates the P probabilities
+    # Generate the P probabilities
     P = {}
     tot = 0
     for k in N:
-        P[k] = c[k] * p**k * (1-p)**(T - k)
+        P[k] = n[k] * p**k * (1-p)**(T - k)
         tot += P[k]
-    # Generates the Q probabilities
+    # Generate the Q probabilities
     Q = {}
     tot = 0
     for k in N:
-        Q[k] = c[k] * q**k * (1-q)**(T - k)
+        Q[k] = n[k] * q**k * (1-q)**(T - k)
         tot += Q[k]
-    # Generates the permuted P probabilities
+    # Generate the permuted P probabilities
     PP = {}
     for i in M:
         for j in N:
-            if i == j and c[j] != 0 and M != T + 1:
+            if i == j and n[j] != 0 and M != T + 1:
                 PP[i,j] = (1 - epsilon) * P[j] + epsilon
             else:
                 PP[i,j] = (1 - epsilon) * P[j]
@@ -124,7 +124,7 @@ def CH_Port_Pos(p, V0, eta, u, d, r, alpha, epsilon, T, c):
 
 
 # Optimal solution of the negative part problem
-def CH_Port_Neg(p, V0, eta, u, d, r, alpha, epsilon, T, c):
+def CH_Port_Neg(p, V0, eta, u, d, r, alpha, epsilon, T, nc):
 
     # Number of variables
     N = list(range(T + 1)) # 0, ..., T
@@ -139,13 +139,13 @@ def CH_Port_Neg(p, V0, eta, u, d, r, alpha, epsilon, T, c):
     P = {}
     PAc = 0
     for k in N:
-        P[k] = c[k] * p**k * (1-p)**(T - k)
+        P[k] = nc[k] * p**k * (1-p)**(T - k)
         PAc += P[k]
     # Generates the Q probabilities
     Q = {}
     QAc = 0
     for k in N:
-        Q[k] = c[k] * q**k * (1-q)**(T - k)
+        Q[k] = nc[k] * q**k * (1-q)**(T - k)
         QAc += Q[k]
     
     K = (1 + r)**T * (eta - V0) / QAc
@@ -165,13 +165,13 @@ def f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb):
     
     opt_diff = -np.infty
     for i in range(len(cart_prod)):
-        c = cart_prod[i]
-        cc = tuple(map(lambda i, j: i - j, omega, c))
+        n = cart_prod[i]
+        nc = tuple(map(lambda i, j: i - j, omega, n))
         opt_p = - np.Infinity
         V_p = {}
         opt_m = np.Infinity
         V_m = {}
-        if sum(c[k] for k in N) == 0: # empty set
+        if sum(n[k] for k in N) == 0: # empty set
             if eta == 0:
                 opt_p = 0
                 V_p = {}
@@ -184,8 +184,8 @@ def f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb):
                 opt_m = 0
                 V_m = 0
             else:
-                V_m, opt_m = CH_Port_Neg(p, V0, eta, u, d, r, alpha_m, epsilon_m, T, cc)
-        elif sum(c[k] for k in N) == 2**T: # all space
+                V_m, opt_m = CH_Port_Neg(p, V0, eta, u, d, r, alpha_m, epsilon_m, T, nc)
+        elif sum(n[k] for k in N) == 2**T: # all space
             if abs(eta - V0) < tolerance:
                 opt_m = 0
                 V_m = 0
@@ -198,27 +198,27 @@ def f(eta, T, u, d, V0, r, p, epsilon_p, epsilon_m, alpha_p, alpha_m, lamb):
                 for i in N:
                     V_p[i] = 0
             else:
-                V_p, opt_p = CH_Port_Pos(p, V0, eta, u, d, r, alpha_p, epsilon_p, T, c)
-        elif sum(c[k] for k in N) != 0 and sum(c[k] for k in N) != 2**T:
+                V_p, opt_p = CH_Port_Pos(p, V0, eta, u, d, r, alpha_p, epsilon_p, T, n)
+        elif sum(n[k] for k in N) != 0 and sum(n[k] for k in N) != 2**T:
             if eta == 0:
                 opt_p = 0
                 V_p = {}
                 for i in N:
                     V_p[i] = 0
             else:
-                V_p, opt_p = CH_Port_Pos(p, V0, eta, u, d, r, alpha_p, epsilon_p, T, c)
+                V_p, opt_p = CH_Port_Pos(p, V0, eta, u, d, r, alpha_p, epsilon_p, T, n)
             if abs(eta - V0) < tolerance:
                 opt_m = 0
                 V_m = 0
             else:
-                V_m, opt_m = CH_Port_Neg(p, V0, eta, u, d, r, alpha_m, epsilon_m, T, cc)
+                V_m, opt_m = CH_Port_Neg(p, V0, eta, u, d, r, alpha_m, epsilon_m, T, nc)
         
         diff = opt_p - lamb * opt_m
         if diff >= opt_diff:
             opt_diff = diff
             opt_V_p = V_p
             opt_V_m = V_m
-            opt_A = c
-            opt_Ac = cc   
+            opt_A = n
+            opt_Ac = nc   
             
     return opt_diff, opt_V_p, opt_V_m, opt_A, opt_Ac
