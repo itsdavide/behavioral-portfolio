@@ -85,7 +85,7 @@ def CH_Port_Pos(p, V0, eta, u, d, r, alpha, epsilon, T, n):
     for k in N:
         Q[k] = n[k] * q**k * (1-q)**(T - k)
         tot += Q[k]
-    # Generate the permuted P probabilities
+    # Generate extreme points
     PP = {}
     for i in M:
         for j in N:
@@ -135,13 +135,13 @@ def CH_Port_Neg(p, V0, eta, u, d, r, alpha, epsilon, T, nc):
     def U(x):
         return x ** alpha
     
-    # Generates the P probabilities
+    # Generate the P probabilities
     P = {}
     PAc = 0
     for k in N:
         P[k] = nc[k] * p**k * (1-p)**(T - k)
         PAc += P[k]
-    # Generates the Q probabilities
+    # Generate the Q probabilities
     Q = {}
     QAc = 0
     for k in N:
