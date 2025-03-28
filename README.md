@@ -1,7 +1,7 @@
 # behavioral-portfolio
 Optimization code for the paper:
     
-A. Cinfrignini, D. Petturiti and B. Vantaggi. Behavioral dynamic portfolio selection with S-shaped utility and epsilon-contaminations. **European Journal of Operational Research**, Accepted, 2025.
+A. Cinfrignini, D. Petturiti and B. Vantaggi. _Behavioral dynamic portfolio selection with S-shaped utility and epsilon-contaminations_. **European Journal of Operational Research**, Accepted, 2025.
 
 
 # Requirements
